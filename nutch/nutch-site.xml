@@ -45,8 +45,20 @@
 <!-- Applicable plugins-->
  <property>
  <name>plugin.includes</name>
- <value>protocol-http|protocol-httpclient|urlfilter-regex|parse-(html|tika|metatags)|index-(basic|anchor|metadata)|query-(basic|site|url)|response-(json|xml)|summary-basic|scoring-opic|indexer-solr|urlnormalizer-(pass|regex|basic)</value>
+ <value>protocol-http|headings|protocol-httpclient|urlfilter-regex|parse-(html|tika|metatags)|index-(basic|anchor|metadata)|query-(basic|site|url)|response-(json|xml)|summary-basic|scoring-opic|indexer-solr|urlnormalizer-(pass|regex|basic)</value>
 <description> At the very least, I needed to add the parse-html, urlfilter-regex, and the indexer-solr.
 </description>
  </property>
+ <property>
+    <name>index.parse.md</name>
+    <value>h1,h2,h3</value>
+  </property>
+  <property>
+    <name>headings</name>
+    <value>h1,h2,h3</value>
+  </property>
+  <property>
+    <name>headings.multivalued</name>
+    <value>true</value>
+  </property>
 </configuration>
