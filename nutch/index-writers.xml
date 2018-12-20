@@ -33,7 +33,7 @@
     <mapping>
       <copy>
         <!-- <field source="content" dest="search"/> -->
-        <!-- <field source="title" dest="title,search"/> -->
+	<!-- <field source="title" dest="title,search"/> -->
       </copy>
       <rename>
         <field source="metatag.description" dest="description"/>
