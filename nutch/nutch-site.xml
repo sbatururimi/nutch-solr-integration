@@ -7,7 +7,7 @@
 </property>
 <property>
  <name>http.robots.agents</name>
- <value>MyBot,*</value>
+ <value>Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.0 (KHTML\, like Gecko) Chrome/3.0.198</value>
  <description>The agent strings we'll look for in robots.txt files,
  comma-separated, in decreasing order of precedence. You should
  put the value of http.agent.name as the first agent name, and keep the
@@ -29,6 +29,31 @@
  </description>
 </property>
 
+<property>
+  <name>ignore.robots.txt</name>
+  <value>true</value>
+  <description>If true, the crawler ignores any robots.txt file on the server</description>
+</property>
+
+<property>
+  <name>http.agent.rotate</name>
+  <value>true</value>
+  <description>
+    If true, instead of http.agent.name, alternating agent names are
+    chosen from a list provided via http.agent.rotate.file.
+  </description>
+</property>
+
+<property>
+  <name>http.agent.rotate.file</name>
+  <value>agents.txt</value>
+  <description>
+    File containing alternative user agent names to be used instead of
+    http.agent.name on a rotating basis if http.agent.rotate is true.
+    Each line of the file should contain exactly one agent
+    specification including name, version, description, URL, etc.
+  </description>
+</property>
 
 <property>
     <name>db.url.filters</name>

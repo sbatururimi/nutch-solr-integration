@@ -2,6 +2,7 @@ version: '3.3'
 services:
   solr:
     image: "solr:7.3.1"
+    container_name: "solr"
     ports:
      - "8983:8983"
     # volumes:
@@ -10,18 +11,24 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - mycore
+  
+  # apache nutch
   nutch:
-    image: "apache/nutch:release-1.15"
-    links:
-      - solr
+    build: .
+    container_name: "nutch"    
+          #image: "apache/nutch:release-1.15"
+          #links:
+          #- solr
     environment: 
       - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
     working_dir: /root/nutch
-    command: '/root/nutch/bin/crawl -i -D solr.server.url=http://solr:8983/solr/mycore -s urls crawl 10'
+    #    command: '/root/nutch/bin/crawl -i -D solr.server.url=http://solr:8983/solr/mycore -s urls crawl 1'
     volumes:
         - ./nutch/index-writers.xml:/root/nutch/conf/index-writers.xml
         - ./nutch/nutch-site.xml:/root/nutch/conf/nutch-site.xml
+        - ./nutch/agents.txt:/root/nutch/conf/agents.txt
         - ./nutch/regex-urlfilter.txt:/root/nutch/conf/regex-urlfilter.txt
         - ./nutch/seed.txt:/root/nutch/urls/seed.txt
+    stdin_open: true
 # volumes:
 #   data:
