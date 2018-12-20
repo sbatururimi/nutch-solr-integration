@@ -55,6 +55,19 @@
   </description>
 </property>
 
+
+<property>
+  <name>http.accept.language</name>
+  <value>ru;q=0.7,*;q=0.3</value>
+  <description>Value of the "Accept-Language" request header field.
+  This allows selecting non-English language as default one to retrieve.
+  It is a useful setting for search engines build for certain national group.
+  To send requests without "Accept-Language" header field, thi  property must
+  be configured to contain a space character because an empty property does
+  not overwrite the default.
+  </description>
+</property>
+
 <!--
 <property>
     <name>db.url.filters</name>
@@ -71,7 +84,7 @@
 <!-- Applicable plugins-->
  <property>
  <name>plugin.includes</name>
- <value>protocol-http|headings|protocol-httpclient|urlfilter-regex|parse-(html|tika|metatags)|index-(basic|anchor|metadata)|query-(basic|site|url)|response-(json|xml)|summary-basic|scoring-opic|indexer-solr|urlnormalizer-(pass|regex|basic)</value>
+ <value>protocol-selenium|headings|protocol-httpclient|urlfilter-regex|parse-(html|tika|metatags)|index-(basic|anchor|metadata)|query-(basic|site|url)|response-(json|xml)|summary-basic|scoring-opic|indexer-solr|urlnormalizer-(pass|regex|basic)</value>
 <description> Regular expression naming plugin directory names to
   include.  Any plugin not matching this expression is excluded.
   In any case you need at least include the nutch-extensionpoints plugin. By
@@ -103,4 +116,118 @@
 	  </description>
   </property>
 
+  <!-- plugin properties that applies to lib-selenium, protocol-selenium,
+     protocol-interactiveselenium, lib-htmlunit, protocol-htmlunit -->
+  <property>
+  <name>page.load.delay</name>
+  <value>20</value>
+  <description>
+    The delay in seconds to use when loading a page with htmlunit or selenium. 
+  </description>
+</property>
+
+<!-- protocol-selenium plugin properties -->
+
+<property>
+  <name>selenium.driver</name>
+  <value>remote</value>
+  <description>
+    A String value representing the flavour of Selenium
+    WebDriver() to use. Currently the following options
+    exist - 'firefox', 'chrome', 'safari', 'opera' and 'remote'.
+    If 'remote' is used it is essential to also set correct properties for
+    'selenium.hub.port', 'selenium.hub.path', 'selenium.hub.host',
+    'selenium.hub.protocol', 'selenium.grid.driver', 'selenium.grid.binary'
+    and 'selenium.enable.headless'.
+  </description>
+</property>
+
+<property>
+  <name>selenium.hub.port</name>
+  <value>4444</value>
+  <description>Selenium Hub Location connection port</description>
+</property>
+
+<property>
+  <name>selenium.hub.path</name>
+  <value>/wd/hub</value>
+  <description>Selenium Hub Location connection path</description>
+</property>
+
+<property>
+  <name>selenium.hub.host</name>
+  <value>selenium-hub</value>
+  <description>Selenium Hub Location connection host</description>
+</property>
+
+<property>
+  <name>selenium.hub.protocol</name>
+  <value>http</value>
+  <description>Selenium Hub Location connection protocol</description>
+</property>
+
+<property>
+  <name>selenium.grid.driver</name>
+  <value>firefox</value>
+  <description>A String value representing the flavour of Selenium
+    WebDriver() used on the selenium grid. We must set `selenium.driver` to `remote` first.
+    Currently the following options exist - 'firefox', 'chrome', 'random'. The `random` mode
+    switch between firefox and chrome drivers randomly.
+  </description>
+</property>
+
+
+<property>
+  <name>fetcher.threads.fetch</name>
+  <value>100</value>
+  <description>The number of FetcherThreads the fetcher should use.
+  This is also determines the maximum number of requests that are
+  made at once (each FetcherThread handles one connection). The total
+  number of threads running in distributed mode will be the number of
+  fetcher threads * number of nodes as fetcher has one map task per node.
+  </description>
+</property>
+
+<property>
+  <name>fetcher.threads.per.queue</name>
+  <value>100</value>
+  <description>This number is the maximum number of threads that
+    should be allowed to access a queue at one time. Setting it to
+    a value > 1 will cause the Crawl-Delay value from robots.txt to
+    be ignored and the value of fetcher.server.min.delay to be used
+    as a delay between successive requests to the same server instead
+    of fetcher.server.delay.
+   </description>
+</property>
+
+
+<property>
+  <name>http.redirect.max</name>
+  <value>3</value>
+  <description>The maximum number of redirects the fetcher will follow when
+  trying to fetch a page. If set to negative or 0, fetcher won't immediately
+  follow redirected URLs, instead it will record them for later fetching.
+  </description>
+</property>
+
+
+<!-- web db properties -->
+<property>
+  <name>db.ignore.also.redirects</name>
+  <value>false</value>
+  <description>If true, the fetcher checks redirects the same way as
+  links when ignoring internal or external links. Set to false to
+  follow redirects despite the values for db.ignore.external.links and
+  db.ignore.internal.links.
+  </description>
+</property>
+
+<!-- sitemap properties -->
+<property>
+  <name>sitemap.redir.max</name>
+  <value>3</value>
+  <description>
+    Maximum number of redirects to follow.
+   </description>
+</property>
 </configuration>

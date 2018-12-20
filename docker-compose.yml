@@ -1,8 +1,41 @@
 version: '3.3'
 services:
+  # selenium hub
+  selenium-hub:
+    image: selenium/hub:3.141.59-bismuth
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+    environment:
+      - GRID_TIMEOUT=0
+      - GRID_THROW_ON_CAPABILITY_NOT_PRESENT=true
+      - GRID_NEW_SESSION_WAIT_TIMEOUT=-1
+      - GRID_BROWSER_TIMEOUT=15000
+      - GRID_TIMEOUT=30000
+      - GRID_CLEAN_UP_CYCLE=30000
+      - GRID_MAX_SESSION=200
+
+  # selenium node
+  firefox:
+    image: selenium/node-firefox:3.141.5-astatine
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      - START_XVFB=false
+      - NODE_MAX_INSTANCES=50
+      - NODE_MAX_SESSION=50
+      - NODE_REGISTER_CYCLE=5000
+      - DBUS_SESSION_BUS_ADDRESS=/dev/null
+
   solr:
     image: "solr:7.3.1"
     container_name: "solr"
+    depends_on:
+      - selenium-hub
     ports:
      - "8983:8983"
     # volumes:
@@ -15,6 +48,8 @@ services:
   # apache nutch
   nutch:
     build: .
+    depends_on:
+      - solr
     container_name: "nutch"    
           #image: "apache/nutch:release-1.15"
           #links:
