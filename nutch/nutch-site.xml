@@ -76,7 +76,7 @@
  </property>
  <property>
     <name>index.parse.md</name>
-    <value>h1,h2,h3</value>
+    <value>metatag.description,metatag.keywords,h1,h2,h3</value>
   </property>
   <property>
     <name>headings</name>
